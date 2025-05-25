@@ -1,28 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>497 - خخخخخخخخخخالد</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دخول التوكنات للروم الصوتي</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" id="login">
-    <h1 497 -</h1>
-    <textarea id="tokenInput" placeholder="اكتب التوكنات، كل توكن بسطر" rows="6"></textarea>
-    <button id="loginBtn">دخول</button>
+  <div class="container">
+    <h1>أدخل التوكنات</h1>
+    <textarea id="tokens" placeholder="كل توكن في سطر..."></textarea>
+    <button onclick="goToVoice()">التالي</button>
   </div>
 
-  <div class="container hidden" id="main">
-    <h1>🔥 497Group🔥</h1>
-    <input type="text" id="channelId" placeholder="ID روم / خاص / قروب">
-    <input type="text" id="mention" placeholder="اكتب الايديات (مفصولة بفاصلة)">
-    <input type="number" id="delay" placeholder="تأخير بالثواني" value="1" step="0.1">
-    <button id="startBtn">ابدأ الإرسال</button>
-    <button id="stopBtn">إيقاف الإرسال</button>
-    <pre id="logBox"></pre>
-    <footer>Khalid 497©</footer>
+  <div class="container" id="voiceForm" style="display:none;">
+    <h1>أدخل ID الروم الصوتي</h1>
+    <input type="text" id="channelId" placeholder="ID الروم" />
+    <button onclick="startVoice()">دخول التوكنات</button>
   </div>
+
+  <script src="app.js"></script>
 </body>
 </html>
