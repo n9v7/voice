@@ -1,24 +1,39 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>دخول التوكنات للروم الصوتي</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <h1>أدخل التوكنات</h1>
-    <textarea id="tokens" placeholder="كل توكن في سطر..."></textarea>
-    <button onclick="goToVoice()">التالي</button>
-  </div>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("button[onclick='goToVoice()']").addEventListener("click", () => {
+    const tokensInput = document.getElementById("tokens").value.trim();
+    if (!tokensInput) {
+      alert("اكتب التوكنات");
+      return;
+    }
+    localStorage.setItem("tokens", tokensInput);
+    document.querySelector(".container").style.display = "none";
+    document.getElementById("voiceForm").style.display = "block";
+  });
+});
 
-  <div class="container" id="voiceForm" style="display:none;">
-    <h1>أدخل ID الروم الصوتي</h1>
-    <input type="text" id="channelId" placeholder="ID الروم" />
-    <button onclick="startVoice()">دخول التوكنات</button>
-  </div>
+function startVoice() {
+  const tokens = localStorage.getItem("tokens").split("\n");
+  const channelId = document.getElementById("channelId").value.trim();
 
-  <script src="app.js"></script>
-</body>
-</html>
+  if (!channelId) {
+    alert("اكتب ID الروم");
+    return;
+  }
+
+  tokens.forEach(token => {
+    fetch(`https://discord.com/api/v9/channels/${channelId}/call`, {
+      method: "POST",
+      headers: {
+        "Authorization": token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ video: false, stream: false })
+    }).then(res => {
+      if (res.status === 200) {
+        console.log(`✅ دخل: ${token.slice(0, 20)}`);
+      } else {
+        console.log(`❌ فشل: ${token.slice(0, 20)} - ${res.status}`);
+      }
+    });
+  });
+}
